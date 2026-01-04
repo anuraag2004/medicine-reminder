@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'; // Ensure you have this CSS file
+import './Login.css'; // Your existing CSS file
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(''); // New state for success message
+  const [success, setSuccess] = useState(''); 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -15,7 +15,7 @@ const LoginPage = () => {
     setSuccess(''); // Clear previous success messages
 
     try {
-      // Make sure this matches your actual backend URL
+      // connecting to the corrected Backend URL
       const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -34,7 +34,7 @@ const LoginPage = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        // 3. Wait 1.5 seconds before redirecting so user sees the message
+        // 3. Wait 1.5 seconds before redirecting
         setTimeout(() => {
           navigate('/home'); 
         }, 1500);
@@ -45,7 +45,7 @@ const LoginPage = () => {
       }
     } catch (err) {
       console.error("Error:", err);
-      setError("Failed to connect to server. Is it running?");
+      setError("Failed to connect to server. Is the backend running on port 5000?");
     }
   };
 
@@ -73,7 +73,7 @@ const LoginPage = () => {
           <h3>Welcome Back</h3>
           <p className="subtitle">Please enter your details to sign in.</p>
 
-          {/* 1. Error Message Display (Red) */}
+          {/* Error Message Display */}
           {error && (
             <div className="error-message" style={{ 
                 color: '#d32f2f', 
@@ -88,7 +88,7 @@ const LoginPage = () => {
             </div>
           )}
 
-          {/* 2. Success Message Display (Green) */}
+          {/* Success Message Display */}
           {success && (
             <div className="success-message" style={{ 
                 color: '#2e7d32', 
@@ -134,7 +134,6 @@ const LoginPage = () => {
                  <input type="checkbox" id="remember" />
                  <label htmlFor="remember">Remember me</label>
                </div>
-               {/* Removed link for cleaner look, add back if needed */}
             </div>
 
             <button type="submit" className="login-btn">Sign In</button>
