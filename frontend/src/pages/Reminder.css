@@ -1,0 +1,185 @@
+/* Container and Header */
+.reminders-container {
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #fcfdfd;
+  min-height: 100vh;
+}
+
+.reminders-header {
+  margin-bottom: 32px;
+  border-left: 5px solid #a2f2e1; /* Branding accent */
+  padding-left: 15px;
+}
+
+.reminders-header h2 {
+  font-size: 2rem;
+  color: #202124;
+  margin: 0;
+}
+
+.reminders-header p {
+  color: #5f6368;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+/* Grid Layout: Responsive columns */
+.reminders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Card Styling */
+.med-card {
+  background: #ffffff;
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.med-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-accent {
+  width: 8px;
+  background-color: #a2f2e1; /* The mint color from your logo/navbar */
+}
+
+.card-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Header Section */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.name-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.med-icon {
+  font-size: 1.5rem;
+  background: #f1f3f4;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.card-top h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #202124;
+  font-weight: 600;
+}
+
+.time-tag {
+  background: #3c4043;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Info Section */
+.med-info {
+  font-size: 0.95rem;
+  color: #3c4043;
+  line-height: 1.6;
+}
+
+.med-info p {
+  margin: 4px 0;
+}
+
+.date-range {
+  margin-top: 12px !important;
+  font-size: 0.85rem;
+  color: #70757a;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Notes Section */
+.notes-box {
+  margin-top: 16px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #dadce0;
+}
+
+.notes-box small {
+  color: #5f6368;
+  display: block;
+  line-height: 1.4;
+}
+
+/* Footer / Actions */
+.card-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.del-btn {
+  background: transparent;
+  color: #d93025;
+  border: 1px solid #fad2cf;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.del-btn:hover {
+  background-color: #d93025;
+  color: #ffffff;
+  border-color: #d93025;
+}
+
+/* Empty & Mobile States */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 2px dashed #dadce0;
+  color: #70757a;
+}
+
+@media (max-width: 480px) {
+  .reminders-container {
+    padding: 20px 15px;
+  }
+  
+  .reminders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-top h3 {
+    font-size: 1.1rem;
+  }
+}
