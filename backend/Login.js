@@ -3,37 +3,36 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Import Routes
 const authRoutes = require('./routes/authRoutes');
-const medicationRoutes = require('./routes/medicationRoutes'); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors()); // Allow frontend to connect
+// 1. ALLOW ALL ORIGINS (Fixes CORS issues)
+app.use(cors({ origin: "*" })); 
 app.use(express.json());
 
-// Database Connection
-// We add a check here so it tells you if the link is missing
+// 2. CHECK MONGO URI
 if (!process.env.MONGO_URI) {
-    console.error("❌ CRITICAL ERROR: MONGO_URI is missing in .env file");
+    console.error("❌ ERROR: MONGO_URI is missing in .env file");
     process.exit(1);
 }
 
+// 3. CONNECT TO DATABASE
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Connected'))
   .catch((err) => console.log('❌ MongoDB Connection Error:', err));
 
-// Routes
-app.use('/api', authRoutes); // Login will be at /api/login
-app.use('/api/medications', medicationRoutes);
+// 4. SETUP ROUTES
+// This makes the login URL: http://localhost:5000/api/login
+app.use('/api', authRoutes); 
 
-// Root Route (To test in browser)
+// 5. TEST ROUTE
 app.get('/', (req, res) => {
-    res.send("API is running...");
+    res.send("Backend is working!");
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+// 6. START SERVER ON 0.0.0.0 (Fixes Windows connection bugs)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

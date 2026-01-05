@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'; // Your existing CSS file
+import './Login.css'; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -11,12 +11,12 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');   // Clear previous errors
-    setSuccess(''); // Clear previous success messages
+    setError('');   
+    setSuccess(''); 
 
     try {
-      // connecting to the corrected Backend URL
-      const response = await fetch('http://localhost:5000/api/login', {
+      // ✅ FIX: Changed 'localhost' to '127.0.0.1' to prevent connection errors
+      const response = await fetch('http://127.0.0.1:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -26,32 +26,27 @@ const LoginPage = () => {
 
       if (response.ok) {
         console.log("Login Success:", data);
-        
-        // 1. Show Success Message
         setSuccess("Login successfully! Redirecting...");
 
-        // 2. Save the token and user info
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        // 3. Wait 1.5 seconds before redirecting
         setTimeout(() => {
           navigate('/home'); 
         }, 1500);
         
       } else {
-        // Show backend error message
         setError(data.message || "Invalid credentials");
       }
     } catch (err) {
       console.error("Error:", err);
-      setError("Failed to connect to server. Is the backend running on port 5000?");
+      // This helps you see if the server is actually dead or just unreachable
+      setError("Failed to connect. Make sure Backend is running on Port 5000.");
     }
   };
 
   return (
     <div className="login-container">
-      {/* Left Side: Image Section */}
       <div className="login-image-section">
         <div className="image-overlay">
           <h2>Health First</h2>
@@ -63,7 +58,6 @@ const LoginPage = () => {
         />
       </div>
 
-      {/* Right Side: Form Section */}
       <div className="login-form-section">
         <div className="form-wrapper">
           <div className="brand-logo">
@@ -73,33 +67,14 @@ const LoginPage = () => {
           <h3>Welcome Back</h3>
           <p className="subtitle">Please enter your details to sign in.</p>
 
-          {/* Error Message Display */}
           {error && (
-            <div className="error-message" style={{ 
-                color: '#d32f2f', 
-                backgroundColor: '#ffebee',
-                padding: '10px',
-                borderRadius: '4px',
-                marginBottom: '1rem', 
-                fontSize: '0.9rem',
-                textAlign: 'center'
-            }}>
+            <div className="error-message" style={{ color: '#d32f2f', backgroundColor: '#ffebee', padding: '10px', borderRadius: '4px', marginBottom: '1rem', textAlign: 'center' }}>
               {error}
             </div>
           )}
 
-          {/* Success Message Display */}
           {success && (
-            <div className="success-message" style={{ 
-                color: '#2e7d32', 
-                backgroundColor: '#e8f5e9',
-                padding: '10px',
-                borderRadius: '4px',
-                marginBottom: '1rem', 
-                fontSize: '0.9rem',
-                textAlign: 'center',
-                fontWeight: 'bold'
-            }}>
+            <div className="success-message" style={{ color: '#2e7d32', backgroundColor: '#e8f5e9', padding: '10px', borderRadius: '4px', marginBottom: '1rem', textAlign: 'center', fontWeight: 'bold' }}>
               {success}
             </div>
           )}
@@ -107,26 +82,12 @@ const LoginPage = () => {
           <form onSubmit={handleLogin}>
             <div className="input-group">
               <label htmlFor="email">Email Address</label>
-              <input 
-                type="email" 
-                id="email" 
-                placeholder="patient@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+              <input type="email" id="email" placeholder="patient@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
 
             <div className="input-group">
               <label htmlFor="password">Password</label>
-              <input 
-                type="password" 
-                id="password" 
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <input type="password" id="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
 
             <div className="form-actions">
